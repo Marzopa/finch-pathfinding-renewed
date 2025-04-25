@@ -15,7 +15,7 @@ enum MyEnum {
  * Custom blocks
  */
 //% weight=100 color=#0fbc11 icon=""
-namespace custom {
+namespace Dijkstra {
     // A grid position
     export interface Position {
         row: number
@@ -52,7 +52,6 @@ namespace custom {
 
         for (let row = 0; row < numRows; row++) {
             for (let col = 0; col < numCols; col++) {
-                // skip barriers
                 if (grid[row][col] === 9) continue
 
                 // key for this node
@@ -64,7 +63,7 @@ namespace custom {
                     const newRow = row + dir.row
                     const newCol = col + dir.col
 
-                    // skip out‐of‐bounds
+                    // skip things outside grid
                     if (newRow < 0 || newRow >= numRows || newCol < 0 || newCol >= numCols) {
                         continue
                     }
@@ -73,7 +72,7 @@ namespace custom {
                     const neighborValue = grid[newRow][newCol]
                     if (neighborValue === 9) continue
 
-                    // record the edge
+                    // record edge
                     graph[nodeKey].push({
                         to: { row: newRow, col: newCol },
                         cost: neighborValue
