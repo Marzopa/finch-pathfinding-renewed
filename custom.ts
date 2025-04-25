@@ -96,12 +96,12 @@ namespace Dijkstra {
         cost: number
     }
 
-    // Helper: turn a Position into its string key
+    // turn a Position into its string key
     function keyFromPosition(pos: Position): string {
         return `${pos.row},${pos.col}`
     }
 
-    // Helper: parse a string key back into a Position
+    // parse a string key back into a Position
     function positionFromKey(str: string): Position {
         const parts = str.split(",")
         return {
@@ -120,7 +120,7 @@ namespace Dijkstra {
         const startKey = keyFromPosition(start)
         const endKey = keyFromPosition(end)
 
-        // 1) Initialize distances to Infinity
+        // distances = Infinity
         let distances: { [k: string]: number } = {}
         let nodeKeys = Object.keys(graph)
         for (let i = 0; i < nodeKeys.length; i++) {
@@ -128,14 +128,14 @@ namespace Dijkstra {
         }
         distances[startKey] = 0
 
-        // 2) Track the best previous hop
+        // track best previous hop
         let previous: { [k: string]: string } = {}
 
-        // 3) Our "priority queue" as a simple array
+        // pq (array)
         let queue: { nodeKey: string; cost: number }[] = []
         queue.push({ nodeKey: startKey, cost: 0 })
 
-        // 4) Main loop
+        // main
         while (queue.length > 0) {
             // pick the lowest-cost entry
             queue.sort((a, b) => a.cost - b.cost)
@@ -151,7 +151,7 @@ namespace Dijkstra {
             // skip stale entries
             if (curCost > distances[curKey]) continue
 
-            // relax each neighbor
+            // each neighbor
             let edges = graph[curKey]
             for (let j = 0; j < edges.length; j++) {
                 let edge = edges[j]
@@ -178,4 +178,6 @@ namespace Dijkstra {
 
         return { path: path, cost: distances[endKey] }
     }
+
+    
 }
