@@ -84,4 +84,98 @@ namespace Dijkstra {
         return graph
     }
 
+    // 
+    //
+    // PATHFINDING PART
+    //
+    //
+
+    // A simple result type for Dijkstra
+    export interface DijkstraResult {
+        path: Position[]
+        cost: number
+    }
+
+    // Helper: turn a Position into its string key
+    function keyFromPosition(pos: Position): string {
+        return `${pos.row},${pos.col}`
+    }
+
+    // Helper: parse a string key back into a Position
+    function positionFromKey(str: string): Position {
+        const parts = str.split(",")
+        return {
+            row: parseInt(parts[0], 10),
+            col: parseInt(parts[1], 10)
+        }
+    }
+
+
+    //% block
+    export function dijkstra(
+        graph: Graph,
+        start: Position,
+        end: Position
+    ): DijkstraResult {
+        const startKey = keyFromPosition(start)
+        const endKey = keyFromPosition(end)
+
+        // 1) Initialize distances to Infinity
+        let distances: { [k: string]: number } = {}
+        let nodeKeys = Object.keys(graph)
+        for (let i = 0; i < nodeKeys.length; i++) {
+            distances[nodeKeys[i]] = Infinity
+        }
+        distances[startKey] = 0
+
+        // 2) Track the best previous hop
+        let previous: { [k: string]: string } = {}
+
+        // 3) Our "priority queue" as a simple array
+        let queue: { nodeKey: string; cost: number }[] = []
+        queue.push({ nodeKey: startKey, cost: 0 })
+
+        // 4) Main loop
+        while (queue.length > 0) {
+            // pick the lowest-cost entry
+            queue.sort((a, b) => a.cost - b.cost)
+            let entry = queue.shift()
+            if (!entry) break
+
+            let curKey = entry.nodeKey
+            let curCost = entry.cost
+
+            // stop if we reached the end
+            if (curKey == endKey) break
+
+            // skip stale entries
+            if (curCost > distances[curKey]) continue
+
+            // relax each neighbor
+            let edges = graph[curKey]
+            for (let j = 0; j < edges.length; j++) {
+                let edge = edges[j]
+                let neighborK = keyFromPosition(edge.to)
+                let newCost = curCost + edge.cost
+
+                if (newCost < distances[neighborK]) {
+                    distances[neighborK] = newCost
+                    previous[neighborK] = curKey
+                    queue.push({ nodeKey: neighborK, cost: newCost })
+                }
+            }
+        }
+
+        // 5) Reconstruct path
+        let path: Position[] = []
+        let trace = endKey
+        while (trace != startKey) {
+            path.push(positionFromKey(trace))
+            trace = previous[trace]
+        }
+        path.push(start)
+        path.reverse()
+
+        return { path: path, cost: distances[endKey] }
+    }
 }
