@@ -21,12 +21,27 @@ namespace Dijkstra {
         row: number
         col: number
     }
+    //% block
+    export function createPosition(row: number, col: number): Position{
+        return {row, col}
+    }
+
+    //% block
+    export function getPositionRow(pos: Position): number{
+        return pos.row
+    }
+    //% block
+    export function getPositionColumn(pos: Position): number {
+        return pos.col
+    }
 
     // An edge from one node to a neighbor, with the movement cost
     export interface Edge {
         to: Position
         cost: number
     }
+
+
 
     // The graph: map each nodeKey "row,col" to its list of outgoing edges
     export type Graph = { [nodeKey: string]: Edge[] }
@@ -116,7 +131,7 @@ namespace Dijkstra {
         graph: Graph,
         start: Position,
         end: Position
-    ): DijkstraResult {
+    ): Position[] {
         const startKey = keyFromPosition(start)
         const endKey = keyFromPosition(end)
 
@@ -176,7 +191,7 @@ namespace Dijkstra {
         path.push(start)
         path.reverse()
 
-        return { path: path, cost: distances[endKey] }
+        return path
     }
 
     

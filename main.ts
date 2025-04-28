@@ -53,11 +53,19 @@ function initializeGraph () {
     ]
     graph = Dijkstra.gridToGraph(final)
 }
-let graph: Dijkstra.Graph = null
 let final: number[][] = []
 let row5: number[] = []
 let row4: number[] = []
 let row3: number[] = []
 let row2: number[] = []
 let row1: number[] = []
+let graph: Dijkstra.Graph = null
 initializeGraph()
+let orientation = 2
+let position = Dijkstra.createPosition(0, 0)
+let path = Dijkstra.dijkstra(graph, position, Dijkstra.createPosition(4, 5))
+for (let step of path) {
+    if (0 == 0) {
+    	
+    }
+}
