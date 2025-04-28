@@ -60,10 +60,15 @@ let row3: number[] = []
 let row2: number[] = []
 let row1: number[] = []
 let graph: Dijkstra.Graph = null
+basic.showIcon(IconNames.Heart)
 initializeGraph()
-let orientation = 2
+basic.showIcon(IconNames.Duck)
+let orientation = 0
 let position = Dijkstra.createPosition(0, 0)
+basic.showIcon(IconNames.House)
 let path = Dijkstra.dijkstra(graph, position, Dijkstra.createPosition(4, 5))
+basic.showIcon(IconNames.EighthNote)
+finch.startFinch()
 for (let step of path) {
     if (Dijkstra.getPositionRow(step) > Dijkstra.getPositionRow(position)) {
         while (orientation != 2) {
@@ -86,7 +91,8 @@ for (let step of path) {
             orientation = (orientation + 1) % 4
         }
     } else {
-    	
+        basic.showIcon(IconNames.SmallDiamond)
     }
     finch.setMove(MoveDir.Forward, 15, 100)
+    position = step
 }
