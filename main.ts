@@ -65,7 +65,28 @@ let orientation = 2
 let position = Dijkstra.createPosition(0, 0)
 let path = Dijkstra.dijkstra(graph, position, Dijkstra.createPosition(4, 5))
 for (let step of path) {
-    if (0 == 0) {
+    if (Dijkstra.getPositionRow(step) > Dijkstra.getPositionRow(position)) {
+        while (orientation != 2) {
+            finch.setTurn(RLDir.Right, 90, 100)
+            orientation = (orientation + 1) % 4
+        }
+    } else if (Dijkstra.getPositionRow(step) < Dijkstra.getPositionRow(position)) {
+        while (orientation != 0) {
+            finch.setTurn(RLDir.Right, 90, 100)
+            orientation = (orientation + 1) % 4
+        }
+    } else if (Dijkstra.getPositionColumn(step) > Dijkstra.getPositionColumn(position)) {
+        while (orientation != 1) {
+            finch.setTurn(RLDir.Right, 90, 100)
+            orientation = (orientation + 1) % 4
+        }
+    } else if (Dijkstra.getPositionColumn(step) < Dijkstra.getPositionColumn(position)) {
+        while (orientation != 3) {
+            finch.setTurn(RLDir.Right, 90, 100)
+            orientation = (orientation + 1) % 4
+        }
+    } else {
     	
     }
+    finch.setMove(MoveDir.Forward, 15, 100)
 }
