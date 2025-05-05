@@ -35,6 +35,15 @@ namespace Dijkstra {
         return pos.col
     }
 
+    //% block
+    export function getIdRow(pos: string): number {
+        return parseInt(pos.split(',').get(0))
+    }
+    //% block
+    export function getIdColumn(pos: string): number {
+        return parseInt(pos.split(',').get(1))
+    }
+
     // An edge from one node to a neighbor, with the movement cost
     export interface Edge {
         to: Position
@@ -112,12 +121,14 @@ namespace Dijkstra {
     }
 
     // turn a Position into its string key
-    function keyFromPosition(pos: Position): string {
+    //% block
+    export function keyFromPosition(pos: Position): string {
         return `${pos.row},${pos.col}`
     }
 
     // parse a string key back into a Position
-    function positionFromKey(str: string): Position {
+    //% block
+    export function positionFromKey(str: string): Position {
         const parts = str.split(",")
         return {
             row: parseInt(parts[0], 10),
@@ -125,15 +136,15 @@ namespace Dijkstra {
         }
     }
 
-
+    // Now this function returns list of strings, each unique id for a node
     //% block
     export function dijkstra(
         graph: Graph,
-        start: Position,
-        end: Position
-    ): Position[] {
-        const startKey = keyFromPosition(start)
-        const endKey = keyFromPosition(end)
+        start: string,
+        end: string
+    ): string[] {
+        const startKey = start
+        const endKey = end
 
         // distances = Infinity
         let distances: { [k: string]: number } = {}
@@ -182,16 +193,22 @@ namespace Dijkstra {
         }
 
         // 5) Reconstruct path
-        let path: Position[] = []
+        let path: string[] = []
         let trace = endKey
         while (trace != startKey) {
-            path.push(positionFromKey(trace))
+            path.push(trace)
             trace = previous[trace]
         }
         path.push(start)
         path.reverse()
 
         return path
+    }
+
+    // After getting your list of strings, need to convert back to positions
+    //% block
+    export function turnToGrid(){
+        
     }
 
     
