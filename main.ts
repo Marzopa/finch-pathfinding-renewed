@@ -1,13 +1,3 @@
-let row1: number[] = []
-let row2: number[] = []
-let row3: number[] = []
-let row4: number[] = []
-let row5: number[] = []
-let final: number[][] = []
-let graph: Dijkstra.Graph = null
-let orientation = 0
-let position: Dijkstra.Position = null
-let path: string[] = []
 function initializeGraph () {
     row1 = [
     1,
@@ -99,3 +89,17 @@ function moveFinch () {
         position = Dijkstra.positionFromKey(step)
     }
 }
+let path: string[] = []
+let position: Dijkstra.Position = null
+let orientation = 0
+let graph: Dijkstra.Graph = null
+let final: number[][] = []
+let row5: number[] = []
+let row4: number[] = []
+let row3: number[] = []
+let row2: number[] = []
+let row1: number[] = []
+basic.showIcon(IconNames.Heart)
+initializeGraph()
+basic.showIcon(IconNames.Duck)
+moveFinch()
