@@ -86,13 +86,7 @@ function moveFinch () {
                 finch.setTurn(RLDir.Left, 90, 75)
                 finch.setTurn(RLDir.Left, 90, 75)
             } else {
-                basic.showLeds(`
-                    . . # . .
-                    . . # . .
-                    # # # # #
-                    . # # # .
-                    . . # . .
-                    `)
+            	
             }
             orientation = 2
         } else if (Dijkstra.getIdRow(step) < Dijkstra.getPositionRow(position)) {
@@ -119,13 +113,7 @@ function moveFinch () {
                 finch.setTurn(RLDir.Left, 90, 75)
                 finch.setTurn(RLDir.Left, 90, 75)
             } else {
-                basic.showLeds(`
-                    . . # . .
-                    . . # . .
-                    # # # # #
-                    . # # # .
-                    . . # . .
-                    `)
+            	
             }
             orientation = 0
         } else if (Dijkstra.getIdColumn(step) > Dijkstra.getPositionColumn(position)) {
@@ -147,20 +135,14 @@ function moveFinch () {
                     . . # . .
                     `)
                 finch.setTurn(RLDir.Left, 90, 75)
-            } else if (orientation == 1) {
+            } else if (orientation == 3) {
                 basic.showIcon(IconNames.No)
                 finch.setTurn(RLDir.Left, 90, 75)
                 finch.setTurn(RLDir.Left, 90, 75)
             } else {
-                basic.showLeds(`
-                    . . # . .
-                    . . # . .
-                    # # # # #
-                    . # # # .
-                    . . # . .
-                    `)
+            	
             }
-            orientation = 3
+            orientation = 1
         } else if (Dijkstra.getIdColumn(step) < Dijkstra.getPositionColumn(position)) {
             if (orientation == 2) {
                 basic.showLeds(`
@@ -185,21 +167,23 @@ function moveFinch () {
                 finch.setTurn(RLDir.Left, 90, 75)
                 finch.setTurn(RLDir.Left, 90, 75)
             } else {
-                basic.showLeds(`
-                    . . # . .
-                    . . # . .
-                    # # # # #
-                    . # # # .
-                    . . # . .
-                    `)
+            	
             }
             orientation = 3
         } else {
             basic.showIcon(IconNames.SmallDiamond)
         }
-        finch.setMove(MoveDir.Forward, 15, 75)
+        basic.showLeds(`
+            . . # . .
+            . . # . .
+            # # # # #
+            . # # # .
+            . . # . .
+            `)
+        finch.setMove(MoveDir.Forward, 25, 75)
         position = Dijkstra.positionFromKey(step)
     }
+    basic.showIcon(IconNames.Yes)
 }
 let path: string[] = []
 let position: Dijkstra.Position = null
