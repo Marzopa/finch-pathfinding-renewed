@@ -63,25 +63,137 @@ function moveFinch () {
     finch.startFinch()
     for (let step of path) {
         if (Dijkstra.getIdRow(step) > Dijkstra.getPositionRow(position)) {
-            while (orientation != 2) {
-                finch.setTurn(RLDir.Right, 90, 100)
-                orientation = (orientation + 1) % 4
+            if (orientation == 1) {
+                basic.showLeds(`
+                    . . # . .
+                    . # # . .
+                    # # # # #
+                    . # # . .
+                    . . # . .
+                    `)
+                finch.setTurn(RLDir.Right, 90, 75)
+            } else if (orientation == 3) {
+                basic.showLeds(`
+                    . . # . .
+                    . . # # .
+                    # # # # #
+                    . . # # .
+                    . . # . .
+                    `)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else if (orientation == 0) {
+                basic.showIcon(IconNames.No)
+                finch.setTurn(RLDir.Left, 90, 75)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else {
+                basic.showLeds(`
+                    . . # . .
+                    . . # . .
+                    # # # # #
+                    . # # # .
+                    . . # . .
+                    `)
             }
+            orientation = 2
         } else if (Dijkstra.getIdRow(step) < Dijkstra.getPositionRow(position)) {
-            while (orientation != 0) {
+            if (orientation == 3) {
+                basic.showLeds(`
+                    . . # . .
+                    . # # . .
+                    # # # # #
+                    . # # . .
+                    . . # . .
+                    `)
                 finch.setTurn(RLDir.Right, 90, 75)
-                orientation = (orientation + 1) % 4
+            } else if (orientation == 1) {
+                basic.showLeds(`
+                    . . # . .
+                    . . # # .
+                    # # # # #
+                    . . # # .
+                    . . # . .
+                    `)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else if (orientation == 2) {
+                basic.showIcon(IconNames.No)
+                finch.setTurn(RLDir.Left, 90, 75)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else {
+                basic.showLeds(`
+                    . . # . .
+                    . . # . .
+                    # # # # #
+                    . # # # .
+                    . . # . .
+                    `)
             }
+            orientation = 0
         } else if (Dijkstra.getIdColumn(step) > Dijkstra.getPositionColumn(position)) {
-            while (orientation != 1) {
+            if (orientation == 0) {
+                basic.showLeds(`
+                    . . # . .
+                    . # # . .
+                    # # # # #
+                    . # # . .
+                    . . # . .
+                    `)
                 finch.setTurn(RLDir.Right, 90, 75)
-                orientation = (orientation + 1) % 4
+            } else if (orientation == 2) {
+                basic.showLeds(`
+                    . . # . .
+                    . . # # .
+                    # # # # #
+                    . . # # .
+                    . . # . .
+                    `)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else if (orientation == 1) {
+                basic.showIcon(IconNames.No)
+                finch.setTurn(RLDir.Left, 90, 75)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else {
+                basic.showLeds(`
+                    . . # . .
+                    . . # . .
+                    # # # # #
+                    . # # # .
+                    . . # . .
+                    `)
             }
+            orientation = 3
         } else if (Dijkstra.getIdColumn(step) < Dijkstra.getPositionColumn(position)) {
-            while (orientation != 3) {
+            if (orientation == 2) {
+                basic.showLeds(`
+                    . . # . .
+                    . # # . .
+                    # # # # #
+                    . # # . .
+                    . . # . .
+                    `)
                 finch.setTurn(RLDir.Right, 90, 75)
-                orientation = (orientation + 1) % 4
+            } else if (orientation == 0) {
+                basic.showLeds(`
+                    . . # . .
+                    . . # # .
+                    # # # # #
+                    . . # # .
+                    . . # . .
+                    `)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else if (orientation == 3) {
+                basic.showIcon(IconNames.No)
+                finch.setTurn(RLDir.Left, 90, 75)
+                finch.setTurn(RLDir.Left, 90, 75)
+            } else {
+                basic.showLeds(`
+                    . . # . .
+                    . . # . .
+                    # # # # #
+                    . # # # .
+                    . . # . .
+                    `)
             }
+            orientation = 3
         } else {
             basic.showIcon(IconNames.SmallDiamond)
         }
